@@ -21,13 +21,11 @@ class _OngkirpageState extends State<Ongkirpage> {
   Province? selectedProv;
   List<Province> listProvince = [];
 
-  //function untuk mendapatkan list province Origin
   Future<List<Province>> getProvinces() async {
     setState(() {
       isLoading = true;
     });
     await MasterDataService.getProvinces().then((value) {
-      //set state dibawah untuk memasukan return dari service kedalam list provinsi
       setState(() {
         listProvince.addAll(value);
         isLoading = false;
@@ -42,13 +40,11 @@ class _OngkirpageState extends State<Ongkirpage> {
   City? selectedCity;
   City? selectedCity2;
   List<City>? listCity = <City>[];
-  //function untuk mendapatkan list city Origin
   Future<List<City>> getCities(var provId) async {
     setState(() {
       isLoadingCOrg = true;
     });
     await MasterDataService.getCity(provId).then((value) {
-      //set state dibawah untuk memasukan return dari service kedalam list city
       setState(() {
         listCity!.addAll(value);
         isLoadingCOrg = false;
@@ -62,10 +58,8 @@ class _OngkirpageState extends State<Ongkirpage> {
   Province? selectedProvDest;
 
   List<Province> listProvinceDest = [];
-  //function untuk mendapatkan list province Destination
   Future<List<Province>> getProvincesDest() async {
     await MasterDataService.getProvinces().then((value) {
-      //set state dibawah untuk memasukan return dari service kedalam list provinsi
       setState(() {
         listProvinceDest.addAll(value);
       });
@@ -79,13 +73,11 @@ class _OngkirpageState extends State<Ongkirpage> {
   City? selectedCityDest;
   City? selectedCityDest2;
   List<City>? listCityDest = [];
-  //function untuk mendapatkan list city Destination
   Future<List<City>> getCitiesDest(var provId) async {
     setState(() {
       isLoadingCDest = true;
     });
     await MasterDataService.getCity(provId).then((value) {
-      //set state dibawah untuk memasukan return dari service kedalam list city
       setState(() {
         listCityDest!.addAll(value);
         isLoadingCDest = false;
@@ -94,7 +86,6 @@ class _OngkirpageState extends State<Ongkirpage> {
     return listCityDest!;
   }
 
-//init state jika halaman di buka maka function get provice dijalankan
   @override
   void initState() {
     super.initState();
@@ -116,7 +107,6 @@ class _OngkirpageState extends State<Ongkirpage> {
               height: double.infinity,
               child: Column(
                 children: [
-                  //Flexible untuk form
                   Flexible(
                     flex: 2,
                     child: Column(
@@ -178,7 +168,6 @@ class _OngkirpageState extends State<Ongkirpage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    //Dropdown list provinsi Origin
                                     isLoading
                                         ? SizedBox(
                                             width: 150,
@@ -203,7 +192,6 @@ class _OngkirpageState extends State<Ongkirpage> {
                                                 },
                                               ).toList(),
                                               onChanged: (Province? newValue) {
-                                                //set state di bawah akan menjalankan service untuk mendapatkan city
                                                 setState(
                                                   () {
                                                     selectedProv = newValue!;
@@ -218,7 +206,6 @@ class _OngkirpageState extends State<Ongkirpage> {
                                               },
                                             ),
                                           ),
-                                    //Dropdown list city origin
                                     isLoadingCOrg
                                         ? SizedBox(
                                             width: 150,
@@ -267,7 +254,6 @@ class _OngkirpageState extends State<Ongkirpage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    //Dropdown list provinsi Destination
                                     isLoading
                                         ? SizedBox(
                                             width: 150,
@@ -292,7 +278,6 @@ class _OngkirpageState extends State<Ongkirpage> {
                                                 },
                                               ).toList(),
                                               onChanged: (Province? newValue) {
-                                                //set state di bawah akan menjalankan service untuk mendapatkan city
                                                 setState(
                                                   () {
                                                     selectedProvDest =
@@ -309,7 +294,6 @@ class _OngkirpageState extends State<Ongkirpage> {
                                               },
                                             ),
                                           ),
-                                    //dropdown list city Destination
                                     isLoadingCDest
                                         ? SizedBox(
                                             width: 150,
@@ -347,16 +331,13 @@ class _OngkirpageState extends State<Ongkirpage> {
                                 SizedBox(
                                   height: 30,
                                 ),
-                                //button submit
                                 Center(
                                   child: GestureDetector(
                                     onTap: () {
-                                      //validasi juka tidak form ada yang kosong
                                       if (selectedCity == null ||
                                           selectedCityDest == null ||
                                           selectedProv == null ||
                                           selectedProvDest == null) {
-                                        //show toast error
                                         Fluttertoast.showToast(
                                             msg:
                                                 "Origin dan atau Destination masih belum diset",
@@ -367,7 +348,6 @@ class _OngkirpageState extends State<Ongkirpage> {
                                             textColor: Colors.white,
                                             fontSize: 16.0);
                                       } else {
-                                        //validasi jika form semua terisi
                                         Fluttertoast.showToast(
                                             msg:
                                                 "Origin = ${selectedCity!.cityName} dan Destination =${selectedCityDest!.cityName}",
@@ -398,7 +378,6 @@ class _OngkirpageState extends State<Ongkirpage> {
                     ),
                   ),
 
-                  //Flexible untuk nampilin data
                   Flexible(
                     flex: 2,
                     child: Container(),
